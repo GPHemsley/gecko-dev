@@ -310,17 +310,18 @@
                     engines="gecko servo-2013"
                     flags="SHORTHAND_IN_GETCS"
                     sub_properties="font-variant-caps
-                                    ${'font-variant-alternates' if engine == 'gecko' else ''}
-                                    ${'font-variant-east-asian' if engine == 'gecko' else ''}
                                     ${'font-variant-ligatures' if engine == 'gecko' else ''}
+                                    ${'font-variant-alternates' if engine == 'gecko' else ''}
                                     ${'font-variant-numeric' if engine == 'gecko' else ''}
+                                    ${'font-variant-east-asian' if engine == 'gecko' else ''}
                                     ${'font-variant-position' if engine == 'gecko' else ''}"
                     spec="https://drafts.csswg.org/css-fonts-3/#propdef-font-variant">
-    <% gecko_sub_properties = "alternates east_asian ligatures numeric position".split() %>
+    <% gecko_sub_properties = "ligatures caps alternates numeric east_asian position".split() %>
     <%
-        sub_properties = ["caps"]
         if engine == "gecko":
-            sub_properties += gecko_sub_properties
+            sub_properties = gecko_sub_properties
+        else:
+            sub_properties = ["caps"]
     %>
 
 % for prop in sub_properties:
